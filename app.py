@@ -1,4 +1,4 @@
-# IT2025C Week 11 - Week 10's app, ready to go online: a landing page you make yours, and the key in wee.env.
+# IT2025C Week 11 - Week 10's app, ready to go online: a landing page you make yours, and the key in .env.
 # Run:    python3 app.py      then open http://127.0.0.1:5001
 # Needs:  python3 -m pip install -r requirements.txt
 # The whole app is in this one file. Your pictures go in the public/ folder.
@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template_string, request, jsonify
 
 # ---------- 1. Settings ----------
-load_dotenv(os.path.join(os.path.dirname(__file__), "wee.env"))
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 key = os.environ.get("BEARCAT_KEY", "")
 
 url = "https://apim-azr-ue2-bgpt-prd-ucin.azure-api.net/openai/deployments/gpt-5.4-ptu/chat/completions?api-version=2024-10-21"
@@ -95,7 +95,7 @@ def image_exif_text(data):
 def ask_files(file_texts, images, prompt):
     """Send document text, image metadata, and image bytes to the model."""
     if key in ("", "PASTE-YOUR-KEY-HERE"):
-        return "No key found. Copy .env.example to wee.env and put your key after BEARCAT_KEY="
+        return "No key found. Add a .env file beside app.py and put your key after BEARCAT_KEY="
     context = ""
     for name, text in file_texts:
         context = context + "File: " + name + "\n" + text + "\n\n"
@@ -185,7 +185,7 @@ def ask():
 
 # ---------- 5. The pages: how they look (STYLE) and what they say ----------
 # Change STYLE or a page, save, and refresh the browser.
-# Asking BearcatGPT for help? Paste this part. Your key is in wee.env, not here.
+# Asking BearcatGPT for help? Paste this part. Your key is in .env, not here.
 
 STYLE = """
 /* Make it yours: change these values first. */
@@ -339,8 +339,8 @@ if __name__ == "__main__":
 
 
 # ---------- 6. Notes ----------
-# The key: copy .env.example to wee.env (Windows: copy .env.example wee.env), then put your key after BEARCAT_KEY=
-#   .gitignore keeps wee.env out of Git and GitHub. Check with: git status
+# The key: create a .env file beside app.py, then put your key after BEARCAT_KEY=
+#   .gitignore keeps .env out of Git and GitHub. Check with: git status
 #
 # Make it yours, on the landing page:
 #   --brand in STYLE (your color), the <title> and <h1> (your app's name), the sentence under it,
@@ -348,7 +348,7 @@ if __name__ == "__main__":
 #
 # Stuck?
 #   No module named ...          -> python3 -m pip install -r requirements.txt
-#   No key found                 -> wee.env missing, still the placeholder, or not named BEARCAT_KEY; fix it, then Control+C and run python3 app.py again
+#   No key found                 -> .env missing, still the placeholder, or not named BEARCAT_KEY; fix it, then Control+C and run python3 app.py again
 #   The API said no (413, 500, or 504) -> your files are too long for one question: try one shorter file
 #   The picture does not show    -> is it in public/? Does src="/your-file.png" match the name exactly, capitals too?
 #   Address already in use       -> another app (Week 10?) is still running: press Control+C in its terminal
