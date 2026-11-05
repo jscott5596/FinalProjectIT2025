@@ -1,0 +1,6 @@
+flask
+requests
+pypdf
+python-docx
+python-dotenv
+Pillow>=9.1

@@ -1,0 +1,143 @@
+STYLE = """
+/* Make it yours: change these values first. */
+:root {
+  --brand: #2b96c0;      /* your project's color: header, buttons, links */
+  --page: #f4f5f7;       /* the page background */
+  --text: #2f3030;       /* normal text */
+  --muted: #6b7280;      /* small, less important text */
+}
+
+/* One readable column in the middle of the page */
+body {
+  font-family: Comic Sans MS, sans-serif;
+  color: var(--text);
+  background: var(--page);
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  line-height: 1.5;
+}
+
+/* A bar at the top of every page */
+.nav { display: flex; gap: 16px; padding: 12px 0; font-weight: bold; }
+.nav a { color: var(--brand); text-decoration: none; }
+
+/* The header: the biggest thing on the page says what the app is */
+.header {
+  background: var(--brand);
+  color: white;
+  padding: 20px 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+.header h1 { margin: 0 0 4px; }
+.header p { margin: 0; }
+
+/* The picture on the landing page */
+.hero { width: 100%; border-radius: 12px; margin-bottom: 24px; display: block; }
+
+/* Cards: a white box groups things that belong together */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+.steps { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+.step { flex: 1; min-width: 160px; background: var(--page); border-radius: 10px; padding: 12px 14px; }
+label { display: block; font-weight: bold; margin: 12px 0 6px; }
+input, textarea { width: 100%; box-sizing: border-box; font: inherit; padding: 8px; }
+button, .button {
+  display: inline-block;
+  margin-top: 16px;
+  background: var(--brand);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}
+.answer { font-size: 18px; white-space: pre-wrap; border-left: 6px solid var(--brand); }
+.note { color: var(--muted); font-size: 14px; }
+"""
+
+# The landing page: what the app is, who it is for, and one button to start. Make every line yours.
+LANDING_PAGE = """<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deep Search</title>
+    <style>""" + STYLE + """</style>
+  </head>
+  <body>
+    <nav class="nav"><a href="/">Home</a><a href="/start">Deep Search</a></nav>
+    <header class="header">
+      <h1>Deep Search</h1>
+      <p>Ask a question about your own files and get an answer in plain sentences.</p>
+    </header>
+    <img class="hero" src="/hero.png" alt="A stack of pages and a question bubble">
+    <div class="card">
+      <h2>Who it is for</h2>
+      <p>Anyone with a long document and a short question.</p>
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step"><strong>1. Upload your image</strong><br>One or more images</div>
+        <div class="step"><strong>2. Search</strong><br>One question, in plain words.</div>
+        <div class="step"><strong>3. Done</strong><br>You will see the results</div>
+      </div>
+      <a class="button" href="/start">Start</a>
+    </div>
+    <p class="note">Use fictional or public files only.</p>
+  </body>
+</html>"""
+
+# The form. The button changes while the model reads your files.
+INDEX_PAGE = """<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deep Search</title>
+    <style>""" + STYLE + """</style>
+  </head>
+  <body>
+    <nav class="nav"><a href="/">Home</a><a href="/start">Deep Search</a></nav>
+    <header class="header">
+      <h1>Deep Search</h1>
+      <p>Upload one or more images and ask one question about them.</p>
+    </header>
+    <form class="card" action="/ask" method="post" enctype="multipart/form-data"
+          onsubmit="this.querySelector('button').textContent = 'Reading your files...';">
+      <label for="file">Your images: one or more</label>
+      <input type="file" id="file" name="file" accept="image/*" multiple>
+      <label for="prompt">Your question</label>
+      <textarea id="prompt" name="prompt" rows="3"></textarea>
+      <button type="submit">Ask</button>
+    </form>
+    <p class="note">Use fictional or public files only.</p>
+  </body>
+</html>"""
+
+# The answer page. {{ name }} prints a value from Python.
+RESULT_PAGE = """<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Answer</title>
+    <style>""" + STYLE + """</style>
+  </head>
+  <body>
+    <nav class="nav"><a href="/">Home</a><a href="/start">Deep Search</a></nav>
+    <header class="header">
+      <h1>Answer</h1>
+      <p><strong>Files:</strong> {{ files|join(", ") }} &middot; <strong>Question:</strong> {{ prompt }}</p>
+    </header>
+    <div class="card answer">{{ answer }}</div>
+    <a class="button" href="/start">Deep Search again</a>
+  </body>
+</html>"""
