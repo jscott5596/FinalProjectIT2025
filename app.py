@@ -188,69 +188,206 @@ def ask():
 # Asking BearcatGPT for help? Paste this part. Your key is in .env, not here.
 
 STYLE = """
-/* Make it yours: change these values first. */
 :root {
-  --brand: #2b96c0;      /* your project's color: header, buttons, links */
-  --page: #f4f5f7;       /* the page background */
-  --text: #2f3030;       /* normal text */
-  --muted: #6b7280;      /* small, less important text */
+  color-scheme: dark;
+  --brand: #55f28b;
+  --brand-soft: #a4ffbd;
+  --page: #080b09;
+  --surface: #101512;
+  --surface-raised: #151c17;
+  --text: #e2eee5;
+  --muted: #8b9b8e;
+  --line: rgba(130, 180, 143, 0.18);
+  --glow: rgba(75, 255, 125, 0.16);
 }
 
-/* One readable column in the middle of the page */
+* { box-sizing: border-box; }
+
 body {
-  font-family: Comic Sans MS, sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   color: var(--text);
-  background: var(--page);
-  max-width: 760px;
+  background:
+    radial-gradient(ellipse at 50% -18%, rgba(35, 101, 54, 0.2), transparent 54%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(91, 158, 105, 0.035) 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(91, 158, 105, 0.025) 40px),
+    var(--page);
+  min-height: 100vh;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 16px 40px;
-  line-height: 1.5;
+  padding: 18px 24px 56px;
+  line-height: 1.65;
 }
 
-/* A bar at the top of every page */
-.nav { display: flex; gap: 16px; padding: 12px 0; font-weight: bold; }
-.nav a { color: var(--brand); text-decoration: none; }
+.nav {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0 22px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.nav a:hover, .nav a:focus-visible {
+  color: var(--brand-soft);
+  border-color: var(--line);
+  background: rgba(85, 242, 139, 0.06);
+  outline: none;
+}
 
-/* The header: the biggest thing on the page says what the app is */
 .header {
-  background: var(--brand);
-  color: white;
-  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(125deg, #121b15, #0d120f 72%);
+  color: var(--text);
+  padding: clamp(24px, 5vw, 42px);
+  border: 1px solid rgba(85, 242, 139, 0.26);
   border-radius: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35), 0 0 34px var(--glow);
 }
-.header h1 { margin: 0 0 4px; }
-.header p { margin: 0; }
+.header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
+  opacity: 0.7;
+}
+.header h1 {
+  margin: 0 0 8px;
+  color: var(--brand-soft);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  text-shadow: 0 0 24px rgba(85, 242, 139, 0.2);
+}
+.header p { margin: 0; color: #aebdb1; }
 
-/* The picture on the landing page */
-.hero { width: 100%; border-radius: 12px; margin-bottom: 24px; display: block; }
+.hero {
+  width: 100%;
+  display: block;
+  margin-bottom: 28px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  filter: saturate(0.78) brightness(0.82);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+}
 
-/* Cards: a white box groups things that belong together */
 .card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px 24px;
+  background: linear-gradient(145deg, rgba(18, 25, 20, 0.98), rgba(13, 17, 14, 0.98));
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: clamp(20px, 4vw, 32px);
   margin-bottom: 24px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
 }
+h2 {
+  margin: 0 0 10px;
+  color: #d7e8da;
+  font-size: 1.05rem;
+  letter-spacing: 0.025em;
+}
+h2:not(:first-child) { margin-top: 28px; }
+p { color: #b6c4b9; }
 .steps { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
-.step { flex: 1; min-width: 160px; background: var(--page); border-radius: 10px; padding: 12px 14px; }
-label { display: block; font-weight: bold; margin: 12px 0 6px; }
-input, textarea { width: 100%; box-sizing: border-box; font: inherit; padding: 8px; }
+.step {
+  flex: 1;
+  min-width: 160px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--muted);
+}
+.step strong { color: var(--brand-soft); }
+label {
+  display: block;
+  color: #d5e4d8;
+  font-size: 0.92rem;
+  font-weight: 650;
+  margin: 18px 0 7px;
+}
+input, textarea {
+  width: 100%;
+  color: var(--text);
+  background: #090d0a;
+  border: 1px solid rgba(136, 168, 141, 0.28);
+  border-radius: 7px;
+  font: inherit;
+  padding: 11px 13px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+input:focus, textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(85, 242, 139, 0.12);
+  outline: none;
+}
+input[type="file"] { color: var(--muted); }
+input[type="file"]::file-selector-button {
+  margin: -4px 12px -4px -4px;
+  padding: 8px 12px;
+  color: var(--brand-soft);
+  background: #18251b;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font: inherit;
+  cursor: pointer;
+}
+textarea { resize: vertical; }
 button, .button {
   display: inline-block;
   margin-top: 16px;
   background: var(--brand);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  color: #071009;
+  border: 1px solid var(--brand);
+  border-radius: 6px;
+  padding: 11px 20px;
   font: inherit;
-  font-weight: bold;
+  font-weight: 750;
+  letter-spacing: 0.025em;
   text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 22px rgba(85, 242, 139, 0.12);
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
-.answer { font-size: 18px; white-space: pre-wrap; border-left: 6px solid var(--brand); }
-.note { color: var(--muted); font-size: 14px; }
+button:hover, .button:hover {
+  background: var(--brand-soft);
+  box-shadow: 0 0 28px rgba(85, 242, 139, 0.25);
+  transform: translateY(-1px);
+}
+button:focus-visible, .button:focus-visible {
+  outline: 2px solid var(--brand-soft);
+  outline-offset: 3px;
+}
+.answer {
+  font-size: 18px;
+  white-space: pre-wrap;
+  border-left: 3px solid var(--brand);
+  color: var(--text);
+  box-shadow: inset 12px 0 24px -24px var(--brand);
+}
+.note {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 0.025em;
+}
+
+@media (max-width: 560px) {
+  body { padding: 12px 16px 40px; }
+  .nav { gap: 2px; padding-bottom: 16px; }
+  .nav a { padding: 8px 10px; }
+  .steps { gap: 8px; }
+  .step { min-width: 100%; }
+}
 """
 
 # The landing page: what the app is, who it is for, and one button to start. Make every line yours.
