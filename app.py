@@ -446,7 +446,12 @@ INDEX_PAGE = """<!doctype html>
       <textarea id="prompt" name="prompt" rows="3"></textarea>
       <button type="submit">Ask</button>
     </form>
+    <H2> Privacy & Limits </H2>
     <p class="note">Use fictional or public files only.</p>
+    <br>
+    <p> Do not upload real names, data, or images that could contain personally identifiable information </p>
+    <br>
+    <p> The answer is processed through Bearcat GPT 5.4, so results may be inaccurate due to the limitations of the model </p>
   </body>
 </html>"""
 
