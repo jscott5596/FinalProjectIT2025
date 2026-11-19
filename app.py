@@ -418,6 +418,10 @@ LANDING_PAGE = """<!doctype html>
       <a class="button" href="/start">Start</a>
     </div>
     <p class="note">Use fictional or public files only.</p>
+     <br>
+    <p> Do not upload real names, data, or images that could contain personally identifiable information </p>
+    <br>
+    <p> The answer is processed through Bearcat GPT 5.4, so results may be inaccurate due to the limitations of the model </p>
   </body>
 </html>"""
 
