@@ -23,7 +23,7 @@ body {
     repeating-linear-gradient(90deg, transparent 0 39px, rgba(91, 158, 105, 0.025) 40px),
     var(--page);
   min-height: 100vh;
-  max-width: 900px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 18px 24px 56px;
   line-height: 1.65;
@@ -190,6 +190,24 @@ button:focus-visible, .button:focus-visible {
   font-size: 13px;
   text-align: center;
   letter-spacing: 0.025em;
+}
+
+@media (min-width: 900px) {
+  body { padding: 24px 48px 64px; }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .header h1 { margin-bottom: 0; }
+  .header p { max-width: 55%; }
+  .hero {
+    max-height: 380px;
+    aspect-ratio: 16 / 5;
+    object-fit: cover;
+  }
+  .steps { flex-wrap: nowrap; }
 }
 
 @media (max-width: 560px) {
