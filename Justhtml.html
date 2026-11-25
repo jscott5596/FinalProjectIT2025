@@ -100,6 +100,8 @@ body {
   margin-bottom: 24px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
 }
+.landing-layout { display: grid; gap: 24px; }
+.landing-layout .card { margin-bottom: 24px; }
 h2 {
   margin: 0 0 10px;
   color: #d7e8da;
@@ -207,6 +209,12 @@ button:focus-visible, .button:focus-visible {
     aspect-ratio: 16 / 5;
     object-fit: cover;
   }
+  .landing-layout {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(0, 2fr);
+    align-items: stretch;
+  }
+  .landing-layout .card { margin-bottom: 24px; }
+  .landing-audience { align-self: stretch; }
   .steps { flex-wrap: nowrap; }
 }
 
@@ -235,16 +243,20 @@ LANDING_PAGE = """<!doctype html>
       <p>Ask a question about your own files and get an answer in plain sentences.</p>
     </header>
     <img class="hero" src="hero.png" alt="A stack of pages and a question bubble">
-    <div class="card">
-      <h2>Who it is for</h2>
-      <p>Anyone who wants to know where an image is from, or know more about pictures.</p>
-      <h2>How it works</h2>
-      <div class="steps">
-        <div class="step"><strong>1. Upload your image</strong><br>One or more images</div>
-        <div class="step"><strong>2. Search</strong><br>One question, in plain words.</div>
-        <div class="step"><strong>3. Done</strong><br>You will see the results</div>
-      </div>
-      <a class="button" href="/start">Start</a>
+    <div class="landing-layout">
+      <section class="card landing-audience">
+        <h2>Who it is for</h2>
+        <p>Anyone who wants to know where an image is from, or know more about pictures.</p>
+      </section>
+      <section class="card landing-how">
+        <h2>How it works</h2>
+        <div class="steps">
+          <div class="step"><strong>1. Upload your image</strong><br>One or more images</div>
+          <div class="step"><strong>2. Search</strong><br>One question, in plain words.</div>
+          <div class="step"><strong>3. Done</strong><br>You will see the results</div>
+        </div>
+        <a class="button" href="/start">Start</a>
+      </section>
     </div>
     <p class="note">Use fictional or public files only.</p>
      <br>
